@@ -14,13 +14,13 @@ class PumpkinCaramelToffee(Candy):
         super().__init__(name, stock, desc, prodID, lactose, nuts)
 
 
-class CandyCanes(Candy):
+class CandyCane(Candy):
     def __init__(self, name, stock, desc, prodID, lactose, nuts, stripes):
         self._stripes = stripes
         super().__init__(name, stock, desc, prodID, lactose, nuts)
 
 
-class CremeEggs(Candy):
+class CremeEgg(Candy):
     def __init__(self, name, stock, desc, prodID, lactose, nuts, packSize):
         self._packSize = packSize
         super().__init__(name, stock, desc, prodID, lactose, nuts)
