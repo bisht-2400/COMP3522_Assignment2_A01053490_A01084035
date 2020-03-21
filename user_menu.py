@@ -45,10 +45,10 @@ def generate_test_books():
     :return: a list
     """
     item_list = [
-        Item("Harry", 2),
-        Item("Hello", 5),
-        Item("Potter", 7),
-        Item("Bye", 3)
+        # Item("Harry", 2,,,
+        # Item("Hello", 5,,,
+        # Item("Potter", 7,,,
+        # Item("Bye", 3,,
     ]
     return item_list
 

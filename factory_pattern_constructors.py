@@ -1,7 +1,7 @@
 from abc import ABC
 
 from toys import DollHouse, RCSpider, RobotBunny, Toy
-from stuffedAnimals import Reindeer, DancingSkeleton, StuffedAnimal, EasterBunny
+from stuffed_animals import Reindeer, DancingSkeleton, StuffedAnimal, EasterBunny
 from candy import CandyCane, CremeEgg, PumpkinCaramelToffee, Candy
 import abc
 
