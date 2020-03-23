@@ -1,12 +1,22 @@
 from store import Store
+from inventory import Inventory
 
 
 class UserMenu:
+    """
+    UserMenu: Provides the menu for the Store.
+    """
     def __init__(self):
+        """
+        Initializes the UserMenu class.
+        """
         self._store = Store()
 
     def main_menu(self):
-        user_input=None
+        """
+        main_menu: provides the main menu of the store.
+        """
+        user_input = None
         while user_input != 3:
             print("\nWelcome to the GB Store! ")
             print("-----------------------")
@@ -37,14 +47,22 @@ class UserMenu:
                 print("INVALID! Please enter a number from 1 - 3.")
 
     def process_web_order(self):
-        filename = input("Please enter filename\n")
+        """
+        Processes the Web order.
+        """
+        filename = "orders.xlsx"
         try:
             self._store.get_orders(filename)
         except FileNotFoundError:
             print("No such file found!")
 
     @staticmethod
-    def check_inventory(number):
+    def inventory_status(number):
+        """
+        Checks the product in the inventory.
+        :param number: int
+        :return: String
+        """
         if number >= 10:
             return "In Stock"
         elif 3 <= number < 10:
@@ -55,17 +73,25 @@ class UserMenu:
             return "Out of Stock"
 
     def decrement_count(self, specific_item, current_inventory):
+        """
+        Decrements the count of the item checked/ordered.
+        :param specific_item: Item Object
+        :param current_inventory: list
+        """
         if len(specific_item) != 0:
             print("Please check the inventory")
             for i in specific_item:
                 get_item_inventory = current_inventory.get_item_count(i)[0]
-                print(i, get_item_inventory, UserMenu.check_inventory(get_item_inventory))
+                print(i, get_item_inventory, UserMenu.inventory_status(get_item_inventory))
             print("\n")
         else:
             print("No such items found in this inventory\n")
 
     def check_inventory(self):
-        current_inventory=self._store.get_inventory()
+        """
+        Checks the items in the inventory.
+        """
+        current_inventory = self._store.get_inventory()
         while True:
             print("1. Santa's Workshop "
                   "2. RC Spider "
@@ -80,28 +106,28 @@ class UserMenu:
                   "11. Quit \n")
             opt = input("Please select and item to view the current stock\n")
             try:
-               opt = int(opt)
+                opt = int(opt)
             except ValueError:
                 print("Please input integer number")
                 continue
             if opt == 1:
-                specific_item=current_inventory.find_item_with_holiday_type("Christmas", "Toy")
+                specific_item = current_inventory.find_item_with_holiday_type("Christmas", "Toy")
                 self.decrement_count(specific_item, current_inventory)
 
             elif opt == 2:
-                specific_item=current_inventory.find_item_with_holiday_type("Halloween", "Toy")
+                specific_item = current_inventory.find_item_with_holiday_type("Halloween", "Toy")
                 self.decrement_count(specific_item, current_inventory)
 
             elif opt == 3:
-                specific_item=current_inventory.find_item_with_holiday_type("Easter", "Toy")
+                specific_item = current_inventory.find_item_with_holiday_type("Easter", "Toy")
                 self.decrement_count(specific_item, current_inventory)
 
             elif opt == 4:
-                specific_item = current_inventory.find_item_with_holiday_type("Christmas", "StuffedAnimal")
+                specific_item = current_inventory.find_item_with_holiday_type("Halloween", "StuffedAnimal")
                 self.decrement_count(specific_item, current_inventory)
 
             elif opt == 5:
-                specific_item = current_inventory.find_item_with_holiday_type("Halloween", "StuffedAnimal")
+                specific_item = current_inventory.find_item_with_holiday_type("Christmas", "StuffedAnimal")
                 self.decrement_count(specific_item, current_inventory)
 
             elif opt == 6:
@@ -109,11 +135,11 @@ class UserMenu:
                 self.decrement_count(specific_item, current_inventory)
 
             elif opt == 7:
-                specific_item = current_inventory.find_item_with_holiday_type("Christmas", "Candy")
+                specific_item = current_inventory.find_item_with_holiday_type("Halloween", "Candy")
                 self.decrement_count(specific_item, current_inventory)
 
             elif opt == 8:
-                specific_item = current_inventory.find_item_with_holiday_type("Halloween", "Candy")
+                specific_item = current_inventory.find_item_with_holiday_type("Christmas", "Candy")
                 self.decrement_count(specific_item, current_inventory)
 
             elif opt == 9:
@@ -133,4 +159,3 @@ class UserMenu:
 if __name__ == "__main__":
     userMenu = UserMenu()
     userMenu.main_menu()
-
