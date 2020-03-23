@@ -1,7 +1,7 @@
 from store_item import StoreItem
 
-from Stuffing import Stuffing
-from Fabric import Fabric
+from stuffing import Stuffing
+from fabric import Fabric
 
 
 class StuffedAnimal(StoreItem):

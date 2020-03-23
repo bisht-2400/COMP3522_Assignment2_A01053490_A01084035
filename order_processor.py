@@ -3,7 +3,7 @@ import pandas as pd
 from store_item_factory import ChristmasItemFactory
 from store_item_factory import EasterItemFactory
 from store_item_factory import HalloweenItemFactory
-from Order import Order
+from order import Order
 
 
 class OrderProcessor:
@@ -28,7 +28,7 @@ class OrderProcessor:
     def check_corrupted(self, d):
         if d['holiday'] == 'Halloween' and d['item'] == 'Toy':
             if d['spider_type'] != 'nan' and d['spider_type'] != 'Tarantula' and d['spider_type'] != 'Wolf Spider':
-                return False, "Halloween toy should have spider type only Tarantula and Wlof spider "
+                return False, "Halloween toy should have spider type only Tarantula and Wolf spider "
 
         elif d['holiday'] == 'Halloween' and d['item'] == 'Toy':
             if d['colour'] != 'Orange' and d['colour'] != 'Blue' and d['colour'] != 'Pink' and d['colour'] != 'nan':

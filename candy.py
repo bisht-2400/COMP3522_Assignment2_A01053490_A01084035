@@ -10,7 +10,7 @@ class Candy(StoreItem):
 
 class CandyCane(Candy):
     def __init__(self, stripe_color, **kwargs):
-        super().__init__(contain_nuts = False, lactose_free=True, **kwargs)
+        super().__init__(contain_nuts=False, lactose_free=True, **kwargs)
         self._stripe_color = stripe_color
 
 
@@ -22,5 +22,5 @@ class CremeEgg(Candy):
 
 class PumpkinCaramelToffee(Candy):
     def __init__(self, variety, **kwargs):
-        super().__init__(contain_nut = True, lactose_free=False, **kwargs)
+        super().__init__(contain_nut=True, lactose_free=False, **kwargs)
         self._variety = variety

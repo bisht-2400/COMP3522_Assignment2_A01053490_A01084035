@@ -1,5 +1,4 @@
 from store import Store
-from inventory import Inventory
 
 
 class UserMenu:
