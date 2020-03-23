@@ -3,21 +3,36 @@ import pandas as pd
 from store_item_factory import ChristmasItemFactory
 from store_item_factory import EasterItemFactory
 from store_item_factory import HalloweenItemFactory
-from order import Order
+from Order import Order
 
 
 class OrderProcessor:
+    """
+    Processes the Web Order received.
+    """
     def __init__(self):
+        """
+        Initializer for the the OrderProcessor.
+        """
         self._order_lst = []
         self._orders = []
         self._column = []
 
-    def sent_order(self, filename):
+    def set_order(self, filename):
+        """
+        Mutator for the orders.
+        :param filename: String
+        :return: List
+        """
         self.get_orders(filename)
         return self._orders
 
     def get_orders(self, filename):
-        data = pd.read_excel(filename + ".xlsx")
+        """
+        Accessor for the orders.
+        :param filename: String
+        """
+        data = pd.read_excel(filename)
         self._column = data.columns
 
         for row in data.iterrows():
@@ -26,6 +41,11 @@ class OrderProcessor:
         self.process_order()
 
     def check_corrupted(self, d):
+        """
+        Checks if the Order received is corrupted
+        :param d: Dict
+        :return: Boolean, String
+        """
         if d['holiday'] == 'Halloween' and d['item'] == 'Toy':
             if d['spider_type'] != 'nan' and d['spider_type'] != 'Tarantula' and d['spider_type'] != 'Wolf Spider':
                 return False, "Halloween toy should have spider type only Tarantula and Wolf spider "
@@ -81,6 +101,9 @@ class OrderProcessor:
             return True, "None"
 
     def process_order(self):
+        """
+        Processes the order received.
+        """
         factory_mapper = FactoryMapping()
         d = {}
 
@@ -88,7 +111,7 @@ class OrderProcessor:
             i = 0
             for value in detail:
                 d[self._column[i]] = value
-                i = i + 1
+                i += 1
 
             if d['holiday'] == "Christmas":
                 factory = factory_mapper.map(1)
@@ -97,15 +120,21 @@ class OrderProcessor:
             else:
                 factory = factory_mapper.map(3)
 
-            corrupted = self.check_corrupted(d)[0]
-            corrupted_reason = self.check_corrupted(d)[1]
+            corrupted = self.check_corrupted(d)
+            corrupted_reason = self.check_corrupted(d)
             self._orders.append(Order(ord_num=d["order_number"], product_id=d["product_id"],
                                       item_type=d["item"], name=d["name"], prod_detail=dict(d), factory_obj=factory,
                                       corrupted=corrupted, corrupted_reason=corrupted_reason))
 
 
 class FactoryMapping:
+    """
+    Factory Mapping class.
+    """
     def __init__(self):
+        """
+        Initializes the Factory Mapper.
+        """
         self.factory_mapping = {
             1: ChristmasItemFactory,
             2: HalloweenItemFactory,
@@ -113,4 +142,9 @@ class FactoryMapping:
         }
 
     def map(self, choice):
+        """
+        Maps the factory.
+        :param choice: int
+        :return: Factory
+        """
         return self.factory_mapping.get(choice, None)()
