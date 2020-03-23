@@ -5,19 +5,36 @@ from order_processor import OrderProcessor
 
 
 class Store:
+    """
+    Store class: Handles all the queries received.
+    """
 
     def __init__(self):
+        """
+        Initializes the Store.
+        """
         self._orders = []
         self._inventory = Inventory()
 
     def get_inventory(self):
+        """
+        Accessor for the inventory.
+        :return: Inventory Object
+        """
         return self._inventory
 
     def get_orders(self, filename):
-        self._orders = OrderProcessor().sent_order(filename)
+        """
+        Accessor for the orders.
+        :param filename: String
+        """
+        self._orders = OrderProcessor().set_order(filename)
         self.update_inventory()
 
     def update_inventory(self):
+        """
+        Updates the inventory: changes the quantity of the product.
+        """
         for i in self._orders:
             if i.get_corrupted():
                 i_quantity = i.get_prod_detail()['quantity']
@@ -36,6 +53,9 @@ class Store:
         self._inventory.get_print()
 
     def create_dtr(self):
+        """
+        Creates the Daily transaction report.
+        """
         print("____ STORE - DAILY TRANSACTION REPORT (DTR)")
         time = datetime.now()
         print(time.strftime("%d-%m-%Y %H:%I"))
